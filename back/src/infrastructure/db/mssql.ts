@@ -26,25 +26,25 @@ export class Database {
       port: env.DB_PORT,
       options: {
         encrypt: env.DB_ENCRYPT,
-        trustServerCertificate: env.DB_TRUST_SERVER_CERT,
+        trustServerCertificate: env.DB_TRUST_SERVER_CERT
       },
       pool: {
         min: env.DB_POOL_MIN,
         max: env.DB_POOL_MAX,
-        idleTimeoutMillis: env.DB_POOL_IDLE,
-      },
+        idleTimeoutMillis: env.DB_POOL_IDLE
+      }
     };
 
     try {
       this.pool = await sql.connect(config);
-      console.log(`[DB] ✅ Conectado a ${env.DB_NAME} en ${env.DB_HOST}`);
+      console.log(`[DB] Conected to ${env.DB_NAME} en ${env.DB_HOST}`);
       this.pool.on('error', (err) => {
-        console.error('[DB] Error en conexión del pool:', err);
+        console.error('[DB] Pool connection error:', err);
         this.pool = null;
       });
       return this.pool;
     } catch (error) {
-      console.error('[DB] Error al conectar:', error);
+      console.error('[DB] Error connecting:', error);
       throw error;
     }
   }
@@ -52,7 +52,7 @@ export class Database {
   async close(): Promise<void> {
     if (this.pool) {
       await this.pool.close();
-      console.log('[DB] 🔌 Conexión cerrada correctamente');
+      console.log('[DB] Connection properly closed');
       this.pool = null;
     }
   }

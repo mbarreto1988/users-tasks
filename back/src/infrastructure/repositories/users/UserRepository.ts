@@ -17,7 +17,7 @@ export class UserRepository implements IUserRepository {
       row.userRole,
       new Date(row.createdAt),
       row.updatedAt ? new Date(row.updatedAt) : null,
-      row.isActive,
+      row.isActive
     );
   }
 
@@ -34,7 +34,7 @@ export class UserRepository implements IUserRepository {
       return result.recordset.map((r: any) => this.mapRow(r));
     } catch (error) {
       console.error('[UserRepository] getAll error:', error);
-      throw new AppError('Error al obtener los usuarios', 500);
+      throw new AppError('Error retrieving users', 500);
     }
   }
 
@@ -49,7 +49,7 @@ export class UserRepository implements IUserRepository {
       return result.recordset.length ? this.mapRow(result.recordset[0]) : null;
     } catch (error) {
       console.error('[UserRepository] getById error:', error);
-      throw new AppError('Error al obtener el usuario', 500);
+      throw new AppError('Error retrieving users', 500);
     }
   }
 
@@ -64,8 +64,7 @@ export class UserRepository implements IUserRepository {
         .input('email', data.email)
         .input('passwordHash', data.passwordHash)
         .input('userRole', data.userRole ?? 'user')
-        .input('isActive', data.isActive ?? true)
-        .query(`
+        .input('isActive', data.isActive ?? true).query(`
           INSERT INTO user_data 
             (firstName, lastName, userName, email, passwordHash, userRole, isActive)
           OUTPUT inserted.*
@@ -75,7 +74,7 @@ export class UserRepository implements IUserRepository {
       return this.mapRow(result.recordset[0]);
     } catch (error) {
       console.error('[UserRepository] create error:', error);
-      throw new AppError('Error al crear el usuario', 500);
+      throw new AppError('Error creating user', 500);
     }
   }
 
@@ -91,8 +90,7 @@ export class UserRepository implements IUserRepository {
         .input('email', data.email)
         .input('passwordHash', data.passwordHash)
         .input('userRole', data.userRole)
-        .input('isActive', data.isActive ?? true)
-        .query(`
+        .input('isActive', data.isActive ?? true).query(`
           UPDATE user_data
           SET 
             firstName = @firstName,
@@ -110,7 +108,7 @@ export class UserRepository implements IUserRepository {
       return result.recordset.length ? this.mapRow(result.recordset[0]) : null;
     } catch (error) {
       console.error('[UserRepository] update error:', error);
-      throw new AppError('Error al actualizar el usuario', 500);
+      throw new AppError('Error updating user', 500);
     }
   }
 
@@ -125,7 +123,7 @@ export class UserRepository implements IUserRepository {
       return result.rowsAffected[0] > 0;
     } catch (error) {
       console.error('[UserRepository] delete error:', error);
-      throw new AppError('Error al eliminar el usuario', 500);
+      throw new AppError('Error deleting user', 500);
     }
   }
 }

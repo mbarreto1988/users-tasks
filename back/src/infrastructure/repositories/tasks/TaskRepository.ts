@@ -29,7 +29,7 @@ export class TaskRepository implements ITaskRepository {
       return result.recordset.map((r: any) => this.mapRow(r));
     } catch (error) {
       console.error('[TaskRepository] getAll error:', error);
-      throw new AppError('Error al obtener las tareas', 500);
+      throw new AppError('Error retrieving tasks', 500);
     }
   }
 
@@ -44,7 +44,7 @@ export class TaskRepository implements ITaskRepository {
       return result.recordset.length ? this.mapRow(result.recordset[0]) : null;
     } catch (error) {
       console.error('[TaskRepository] getById error:', error);
-      throw new AppError('Error al obtener la tarea', 500);
+      throw new AppError('Error retrieving task', 500);
     }
   }
 
@@ -61,7 +61,7 @@ export class TaskRepository implements ITaskRepository {
       return result.recordset.map((r: any) => this.mapRow(r));
     } catch (error) {
       console.error('[TaskRepository] getByUserId error:', error);
-      throw new AppError('Error al obtener las tareas del usuario', 500);
+      throw new AppError('Error retrieving user tasks', 500);
     }
   }
 
@@ -86,7 +86,7 @@ export class TaskRepository implements ITaskRepository {
       return this.mapRow(result.recordset[0]);
     } catch (error) {
       console.error('[TaskRepository] create error:', error);
-      throw new AppError('Error al crear la tarea', 500);
+      throw new AppError('Error creating task', 500);
     }
   }
 
@@ -121,7 +121,7 @@ export class TaskRepository implements ITaskRepository {
       return result.recordset.length ? this.mapRow(result.recordset[0]) : null;
     } catch (error) {
       console.error('[TaskRepository] update error:', error);
-      throw new AppError('Error al actualizar la tarea', 500);
+      throw new AppError('Error updating task', 500);
     }
   }
 
@@ -136,7 +136,7 @@ export class TaskRepository implements ITaskRepository {
       return result.rowsAffected[0] > 0;
     } catch (error) {
       console.error('[TaskRepository] delete error:', error);
-      throw new AppError('Error al eliminar la tarea', 500);
+      throw new AppError('Error deleting task', 500);
     }
   }
 }

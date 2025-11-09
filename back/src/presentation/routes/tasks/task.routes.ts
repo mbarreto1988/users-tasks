@@ -4,7 +4,7 @@ import { Database } from '../../../infrastructure/db/mssql';
 import { TaskRepository } from '../../../infrastructure/repositories/tasks/TaskRepository';
 import { TaskUseCases } from '../../../application/use-cases/tasks/task.useCases';
 import { TaskController } from '../../controllers/tasks/task.controller';
-import { authMiddleware } from '../../middlewares/auth.middleware'; // ya lo tenés
+import { authMiddleware } from '../../middlewares/auth.middleware';
 
 const router = Router();
 const db = Database.getInstance();

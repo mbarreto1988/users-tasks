@@ -24,21 +24,20 @@ export class AuthRepository implements IAuthRepository {
   async findByEmail(email: string): Promise<User | null> {
     try {
       const pool = await this.db.connect();
-      const result = await pool
-        .request()
-        .input('email', email)
-        .query(`
+      const result = await pool.request().input('email', email).query(`
           SELECT * FROM user_data WHERE email = @email
         `);
 
       return result.recordset.length ? this.mapRow(result.recordset[0]) : null;
     } catch (error) {
       console.error('[AuthRepository] findByEmail error:', error);
-      throw new AppError('Error al buscar usuario por email', 500);
+      throw new AppError('Error searching for user by email', 500);
     }
   }
 
-  async create( user: Omit<User, 'id' | 'createdAt' | 'updatedAt'> ): Promise<User> {
+  async create(
+    user: Omit<User, 'id' | 'createdAt' | 'updatedAt'>
+  ): Promise<User> {
     try {
       const pool = await this.db.connect();
       const result = await pool
@@ -49,8 +48,7 @@ export class AuthRepository implements IAuthRepository {
         .input('email', user.email)
         .input('passwordHash', user.passwordHash)
         .input('userRole', user.userRole)
-        .input('isActive', user.isActive ?? true)
-        .query(`
+        .input('isActive', user.isActive ?? true).query(`
           INSERT INTO user_data (firstName, lastName, userName, email, passwordHash, userRole, isActive)
           OUTPUT inserted.*
           VALUES (@firstName, @lastName, @userName, @email, @passwordHash, @userRole, @isActive)
@@ -59,7 +57,7 @@ export class AuthRepository implements IAuthRepository {
       return this.mapRow(result.recordset[0]);
     } catch (error) {
       console.error('[AuthRepository] create error:', error);
-      throw new AppError('Error al crear usuario', 500);
+      throw new AppError('Error creating user', 500);
     }
   }
 }

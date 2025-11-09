@@ -9,6 +9,6 @@ export class User {
     public readonly userRole: string | null,
     public readonly createdAt: Date,
     public readonly updatedAt: Date | null,
-    public readonly isActive: boolean,
+    public readonly isActive: boolean
   ) {}
 }
