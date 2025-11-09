@@ -274,6 +274,8 @@ curl -X POST http://localhost:3000/api/v1/users -H "Authorization: Bearer <ACCES
 
 ## Estructura del Proyecto
 
+
+```python
 src/
 ├── application/         # Casos de uso y validaciones con Zod
 │   ├── dto/             # Data Transfer Objects (validaciones de entrada)
@@ -299,6 +301,8 @@ src/
     ├── errors/          # Manejo unificado de errores (AppError)
     ├── http/            # Utilidades de respuesta y asyncHandler
     └── utils/           # Funciones auxiliares
+```
+
 
 
 ## Testing
@@ -312,6 +316,8 @@ npm run test
 ```
 
 ## Estructura de los tests
+
+```python
 src/
 ├── infrastructure/
 │   ├── db/__test__/...
@@ -324,6 +330,7 @@ src/
 ├── presentation/
 │   ├── controllers/__test__/...
 │   └── middlewares/__test__/...
+```
 
 
 Cada test se ejecuta en aislamiento, utilizando mocks de dependencias (como base de datos o JWT) para simular el comportamiento real sin afectar el entorno productivo.
