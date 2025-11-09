@@ -1,7 +1,29 @@
 # 🧱 Users & Tasks API — Clean Architecture
 
 API RESTful desarrollada en **Node.js + TypeScript** con enfoque en **Clean Architecture**, separando responsabilidades y garantizando un código mantenible, escalable y testeable.  
-La aplicación gestiona **usuarios** y **tareas**, con control de **roles (admin/user)** y autenticación mediante **JWT**.
+La aplicación gestiona **usuarios** y **tareas**, con control de **roles (admin/user)** y autenticación mediante **JWT** para un manejo seguro de sesiones..
+
+# Propósito del proyecto
+Este proyecto fue desarrollado con el objetivo de demostrar una forma de trabajo limpia, organizada y escalable, siguiendo los principios SOLID, las prácticas de Clean Code y una clara separación de responsabilidades entre las capas y los distintos módulos de la aplicación.
+
+Refleja mi manera de encarar el desarrollo de sistemas reales: buscando que el código sea fácil de entender, mantener y extender, priorizando la legibilidad, los tests y la escalabilidad a largo plazo
+
+# Funcionalidades
+- **Autenticación y Autorización:**
+Sistema seguro de registro e inicio de sesión utilizando JWT, tanto para la autenticación como para la protección de rutas.
+- **Gestión de Roles:** 
+  - **Admin:** puede crear, listar, modificar y eliminar usuarios y tareas.  
+  - **User:** puede gestionar únicamente su propio perfil y tareas. 
+- **Implementación de Clean Architecture:**
+El código está estructurado en capas bien definidas — domain, application, infrastructure y presentation — siguiendo las mejores prácticas para fomentar la testabilidad y la independencia de frameworks o librerías externas.
+- **Pruebas Unitarias:**
+Cada caso de uso y repositorio clave cuenta con tests unitarios, asegurando confiabilidad y robustez en el funcionamiento general del sistema.
+
+# Por qué lo hice
+Este proyecto fue creado como una muestra personal de mi manera de trabajar, mi forma de pensar el código y de estructurar una aplicación completa.
+No busca solo mostrar conocimiento técnico, sino también mis ganas de seguir aprendiendo y creciendo como desarrollador, explorando diferentes arquitecturas, infraestructuras y patrones que permitan construir soluciones sólidas y escalables.
+
+Mi foco está siempre en escribir código limpio, entendible y mantenible, aportando valor real a los equipos de desarrollo y asegurando bases sólidas para proyectos a largo plazo.
 
 ---
 
@@ -18,7 +40,44 @@ cd users-task/back
 npm install
 ```
 
-### 3. Variables de entorno (`.env`)
+### 3. Scrip para la base de datos (en este caso relacional SQL Server)
+```sql
+create database BackFront;
+
+use BackFront;
+
+CREATE TABLE
+	user_data (
+		id int identity (1, 1) not null,
+		firstName varchar(80),
+		lastName varchar(100),
+		userName nvarchar (100),
+		email nvarchar (150),
+		passwordHash nvarchar (255) NOT NULL,
+		userRole nvarchar (80),
+		isActive int not null,
+		createdAt datetime default getdate (),
+		updatedAt DATETIME NULL,
+		primary key (id)
+	);
+
+CREATE TABLE
+	task_data (
+		id INT IDENTITY (1, 1) NOT NULL,
+		title NVARCHAR (MAX) NOT NULL,
+		description TEXT NULL,
+		status NVARCHAR (50) DEFAULT 'pending',
+		priority NVARCHAR (50) DEFAULT 'medium',
+		userId INT NOT NULL,
+		createdAt DATETIME DEFAULT GETDATE (),
+		updatedAt DATETIME NULL,
+		isActive BIT DEFAULT 1,
+		CONSTRAINT PK_task_data PRIMARY KEY (id),
+		CONSTRAINT FK_task_user FOREIGN KEY (userId) REFERENCES user_data (id) ON DELETE CASCADE
+	);
+```
+
+### 4. Variables de entorno (`.env`)
 Configurar el archivo `.env` con tus credenciales:
 
 ```env
@@ -39,7 +98,7 @@ JWT_EXPIRES_IN=1h
 BCRYPT_SALT_ROUNDS=10
 ```
 
-### 4. Ejecutar el servidor
+### 5. Ejecutar el servidor
 ```bash
 npm run dev
 ```
@@ -213,14 +272,76 @@ curl -X POST http://localhost:3000/api/v1/users -H "Authorization: Bearer <ACCES
 
 ---
 
-## 🧪 Testing (Sugerido)
+## Estructura del Proyecto
 
-La arquitectura permite testear de forma independiente cada capa:
-- **UseCases:** unit tests con mocks (lógica pura)
-- **Repositories:** tests de integración con DB
-- **Controllers:** tests HTTP con Supertest
+src/
+├── application/         # Casos de uso y validaciones con Zod
+│   ├── dto/             # Data Transfer Objects (validaciones de entrada)
+│   └── use-cases/       # Lógica de negocio central
+│
+├── domain/              # Entidades y contratos de repositorios
+│   ├── entities/        
+│   └── repositories/    
+│
+├── infrastructure/      # Conexiones externas e implementación de repositorios
+│   ├── db/              # Configuración y conexión a MSSQL
+│   ├── repositories/    # Implementaciones concretas de interfaces del dominio
+│   ├── services/        # Servicios como JWT, bcrypt, etc.
+│   └── config/          # Variables de entorno y configuración general
+│
+├── presentation/        # Capa de presentación y ruteo
+│   ├── controllers/     # Controladores Express
+│   ├── middlewares/     # Middlewares globales y de seguridad
+│   ├── routes/          # Rutas agrupadas por feature
+│   └── server.ts        # Configuración principal del servidor
+│
+└── shared/              # Código compartido
+    ├── errors/          # Manejo unificado de errores (AppError)
+    ├── http/            # Utilidades de respuesta y asyncHandler
+    └── utils/           # Funciones auxiliares
 
----
+
+## Testing
+El proyecto utiliza Jest + ts-jest para las pruebas unitarias.
+Cada capa crítica (infraestructura, casos de uso, controladores y middlewares) cuenta con su propio conjunto de tests en la carpeta __test__ de cada módulo.
+
+### Ejecutar los tests
+```ts
+npm install
+npm run test
+```
+
+## Estructura de los tests
+src/
+├── infrastructure/
+│   ├── db/__test__/...
+│   ├── repositories/__test__/...
+│   └── services/__test__/...
+│
+├── application/
+│   └── use-cases/__test__/...
+│
+├── presentation/
+│   ├── controllers/__test__/...
+│   └── middlewares/__test__/...
+
+
+Cada test se ejecuta en aislamiento, utilizando mocks de dependencias (como base de datos o JWT) para simular el comportamiento real sin afectar el entorno productivo.
+
+Los tests cubren:
+- Casos de uso principales (auth, users, tasks).
+- Repositorios y conexiones a base de datos.
+- Controladores y middlewares.
+- Servicios como JWT o bcrypt.
+
+## Tecnologías y librerías principales
+- Express — Servidor HTTP.
+- MSSQL — Base de datos relacional.
+- Zod — Validaciones y tipado estático.
+- bcrypt — Encriptación de contraseñas.
+- jsonwebtoken (JWT) — Autenticación.
+- Jest + ts-jest — Testing.
+- ESLint + Prettier — Estilo y consistencia de código
 
 ## 🧱 Conclusión
 
