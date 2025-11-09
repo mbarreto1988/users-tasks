@@ -1,4 +1,4 @@
-# 🧱 Users & Tasks API — Clean Architecture
+# Users & Tasks API — Clean Architecture / Node.js + TypeScript
 
 API RESTful desarrollada en **Node.js + TypeScript** con enfoque en **Clean Architecture**, separando responsabilidades y garantizando un código mantenible, escalable y testeable.  
 La aplicación gestiona **usuarios** y **tareas**, con control de **roles (admin/user)** y autenticación mediante **JWT** para un manejo seguro de sesiones..
@@ -19,7 +19,7 @@ El código está estructurado en capas bien definidas — domain, application, i
 - **Pruebas Unitarias:**
 Cada caso de uso y repositorio clave cuenta con tests unitarios, asegurando confiabilidad y robustez en el funcionamiento general del sistema.
 
-# Por qué lo hice
+# Por qué lo hice?
 Este proyecto fue creado como una muestra personal de mi manera de trabajar, mi forma de pensar el código y de estructurar una aplicación completa.
 No busca solo mostrar conocimiento técnico, sino también mis ganas de seguir aprendiendo y creciendo como desarrollador, explorando diferentes arquitecturas, infraestructuras y patrones que permitan construir soluciones sólidas y escalables.
 

@@ -7,9 +7,9 @@ const tsJestTransformCfg = createDefaultPreset().transform;
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  roots: ['<rootDir>/src'], // look for tests inside src
+  roots: ['<rootDir>/src'],
   moduleFileExtensions: ['ts', 'js', 'json'],
-  testMatch: ['**/__test__/**/*.ts', '**/*.test.ts'], // supports both __test__ folders and *.test.ts files
+  testMatch: ['**/__test__/**/*.ts', '**/*.test.ts'],
   clearMocks: true,
   verbose: true,
 };
