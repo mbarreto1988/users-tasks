@@ -22,10 +22,6 @@ describe('TaskController', () => {
     updatedAt: null,
   };
 
-  beforeAll(() => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-  });
-
   beforeEach(() => {
     mockUseCase = {
       getAll: jest.fn(),
@@ -84,7 +80,7 @@ describe('TaskController', () => {
       expect(mockUseCase.create).toHaveBeenCalledWith(mockReq.body, 1);
       expect(mockRes.status).toHaveBeenCalledWith(201);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Tarea creada correctamente',
+        message: 'Task created successfully',
         data: mockTask,
       });
     });
@@ -99,7 +95,7 @@ describe('TaskController', () => {
       expect(mockUseCase.update).toHaveBeenCalledWith(1, mockReq.body, 1, 'user');
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Tarea actualizada',
+        message: 'Task updated successfully',
         data: mockTask,
       });
     });
@@ -114,7 +110,7 @@ describe('TaskController', () => {
       expect(mockUseCase.delete).toHaveBeenCalledWith(1, 1, 'user');
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Tarea eliminada correctamente',
+        message: 'Task successfully deleted',
       });
     });
   });

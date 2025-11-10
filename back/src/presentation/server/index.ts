@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 
 import { authRoutes } from '../routes/auth/users.route';
 import { userRoutes } from '../routes/users/user.routes';
@@ -12,6 +13,13 @@ export class Server {
   constructor() {
     this.app.use(express.json());
     this.app.use(loggerMiddleware);
+    this.app.use(
+      cors({
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+      })
+    );
     this.app.get('/', (_req, res) =>
       res.status(200).json({ message: 'Helloo' })
     );

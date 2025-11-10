@@ -9,14 +9,10 @@ describe('AuthController', () => {
   let mockRes: any;
   let mockNext: jest.Mock;
 
-  beforeAll(() => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-  });
-
   beforeEach(() => {
     mockUseCase = {
       register: jest.fn(),
-      login: jest.fn()
+      login: jest.fn(),
     } as unknown as jest.Mocked<AuthUseCase>;
 
     controller = new AuthController(mockUseCase);
@@ -24,7 +20,7 @@ describe('AuthController', () => {
     mockReq = { body: { email: 'test@example.com', password: '12345' } };
     mockRes = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn().mockReturnThis()
+      json: jest.fn().mockReturnThis(),
     };
     mockNext = jest.fn();
   });
@@ -32,13 +28,13 @@ describe('AuthController', () => {
   describe('register', () => {
     it('should register a user successfully', async () => {
       const mockResult = {
-        message: 'User registered',
+        message: 'User registered successfully',
         user: {
           id: 1,
           userName: 'testuser',
           email: 'test@example.com',
-          role: 'user'
-        }
+          role: 'user',
+        },
       };
       mockUseCase.register.mockResolvedValue(mockResult);
 
@@ -47,8 +43,8 @@ describe('AuthController', () => {
       expect(mockUseCase.register).toHaveBeenCalledWith(mockReq.body);
       expect(mockRes.status).toHaveBeenCalledWith(201);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Usuario registrado',
-        ...successResponse(mockResult)
+        message: 'Registered user',
+        ...successResponse(mockResult),
       });
     });
 
@@ -65,17 +61,17 @@ describe('AuthController', () => {
   describe('login', () => {
     it('should log in a user successfully', async () => {
       const mockResult = {
-        message: 'Login exitoso',
+        message: 'Successful login',
         tokens: {
           accessToken: 'mockAccessToken',
-          refreshToken: 'mockRefreshToken'
+          refreshToken: 'mockRefreshToken',
         },
         user: {
           id: 1,
           userName: 'testuser',
           email: 'test@example.com',
-          role: 'user'
-        }
+          role: 'user',
+        },
       };
       mockUseCase.login.mockResolvedValue(mockResult);
 
@@ -84,8 +80,8 @@ describe('AuthController', () => {
       expect(mockUseCase.login).toHaveBeenCalledWith(mockReq.body);
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Login exitoso',
-        ...successResponse(mockResult)
+        message: 'Successful login',
+        ...successResponse(mockResult),
       });
     });
 

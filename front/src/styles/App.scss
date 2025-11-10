@@ -1,0 +1,23 @@
+@use './variables' as *;
+@use '../components/Navbar/index.scss' as navbar;
+@use '../components/Footer/index.scss' as footer;
+@use '../containers/Home/index.scss' as home;
+@use '../pages/Login/index.scss' as login;
+@use '../pages/Register/index.scss' as register;
+@use '../pages/Profile/index.scss' as profile;
+@use '../pages/Tasks/index.scss' as task;
+@use '../pages/Users/index.scss' as users;
+
+body {
+  font-family: $font-family;
+  background-color: $bg-color;
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

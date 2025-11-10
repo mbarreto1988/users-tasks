@@ -1,0 +1,87 @@
+@use "../../styles/variables" as *;
+
+.profile {
+  text-align: center;
+  padding: 2rem;
+
+  &__title {
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+  }
+
+  &__info,
+  &__form {
+    background: white;
+    display: inline-block;
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    min-width: 320px;
+  }
+
+  p {
+    margin: 0.4rem 0;
+  }
+
+  input,
+  select {
+    width: 100%;
+    margin-bottom: 0.7rem;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+    }
+  }
+
+  .profile__btn {
+    background-color: $primary-color;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s ease;
+
+    &--edit {
+      margin-top: 1rem;
+    }
+
+    &--save {
+      background-color: #28a745;
+
+      &:hover {
+        background-color: darken(#28a745, 8%);
+      }
+    }
+
+    &--cancel {
+      background-color: #d9534f;
+
+      &:hover {
+        background-color: darken(#d9534f, 8%);
+      }
+    }
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  .profile__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+
+  h4 {
+    margin: 1rem 0 0.5rem 0;
+    color: $primary-color;
+  }
+}

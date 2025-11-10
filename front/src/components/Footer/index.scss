@@ -1,0 +1,28 @@
+@use '../../styles/variables' as *;
+
+.footer {
+  margin-top: auto;
+  background-color: $secondary-color;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+
+  &__buttons {
+    margin-bottom: 0.5rem;
+
+    .footer__btn {
+      margin: 0 0.5rem;
+      background: white;
+      color: $secondary-color;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  }
+
+  &__copy {
+    font-size: 0.9rem;
+  }
+}

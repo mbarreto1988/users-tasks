@@ -1,0 +1,19 @@
+@use '../../styles/variables' as *;
+
+.home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    color: $primary-color;
+    font-size: 2rem;
+  }
+
+  &__subtitle {
+    color: $text-color;
+    font-size: 1.1rem;
+  }
+}

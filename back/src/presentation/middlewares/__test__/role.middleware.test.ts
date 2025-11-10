@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-
 import { roleMiddleware } from '../role.middleware';
 import { AppError } from '../../../shared/errors/AppError';
 
@@ -14,7 +13,7 @@ describe('roleMiddleware', () => {
     mockNext = jest.fn();
   });
 
-  it('should call next if user has allowed role', () => {
+  it('debería llamar next si el usuario tiene un rol permitido', () => {
     mockReq.user = { role: 'admin' } as any;
     const middleware = roleMiddleware(['admin', 'manager']);
 
@@ -23,7 +22,7 @@ describe('roleMiddleware', () => {
     expect(mockNext).toHaveBeenCalled();
   });
 
-  it('should throw AppError(403) if user role is not allowed', () => {
+  it('debería lanzar AppError(403) si el rol del usuario no está permitido', () => {
     mockReq.user = { role: 'user' } as any;
     const middleware = roleMiddleware(['admin']);
 
@@ -36,11 +35,11 @@ describe('roleMiddleware', () => {
     } catch (err: any) {
       expect(err).toBeInstanceOf(AppError);
       expect(err.statusCode).toBe(403);
-      expect(err.message).toBe('No tenés permisos para acceder a esta ruta');
+      expect(err.message).toBe('You do not have permission to access this route');
     }
   });
 
-  it('should throw AppError(401) if user is not authenticated', () => {
+  it('debería lanzar AppError(401) si el usuario no está autenticado', () => {
     mockReq.user = undefined;
     const middleware = roleMiddleware(['admin']);
 
@@ -53,7 +52,7 @@ describe('roleMiddleware', () => {
     } catch (err: any) {
       expect(err).toBeInstanceOf(AppError);
       expect(err.statusCode).toBe(401);
-      expect(err.message).toBe('No autenticado');
+      expect(err.message).toBe('Not authenticated');
     }
   });
 });

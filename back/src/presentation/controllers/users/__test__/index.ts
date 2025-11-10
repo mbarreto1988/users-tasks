@@ -23,10 +23,6 @@ describe('UsersController', () => {
     isActive: true,
   };
 
-  beforeAll(() => {
-    jest.spyOn(console, 'error').mockImplementation(() => {});
-  });
-
   beforeEach(() => {
     mockUseCase = {
       getAll: jest.fn(),
@@ -89,7 +85,7 @@ describe('UsersController', () => {
       expect(mockUseCase.create).toHaveBeenCalledWith(mockReq.body, 'admin');
       expect(mockRes.status).toHaveBeenCalledWith(201);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Usuario creado correctamente',
+        message: 'User created successfully',
         data: mockUser,
       });
     });
@@ -104,7 +100,7 @@ describe('UsersController', () => {
       expect(mockUseCase.update).toHaveBeenCalledWith(1, mockReq.body, 1, 'admin');
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Usuario actualizado correctamente',
+        message: 'User successfully updated',
         data: mockUser,
       });
     });
@@ -119,7 +115,7 @@ describe('UsersController', () => {
       expect(mockUseCase.patch).toHaveBeenCalledWith(1, mockReq.body, 1, 'admin');
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Usuario actualizado parcialmente',
+        message: 'User partially updated',
         data: mockUser,
       });
     });
@@ -134,7 +130,7 @@ describe('UsersController', () => {
       expect(mockUseCase.delete).toHaveBeenCalledWith(1, 1, 'admin');
       expect(mockRes.status).toHaveBeenCalledWith(200);
       expect(mockRes.json).toHaveBeenCalledWith({
-        message: 'Usuario 1 eliminado',
+        message: 'User 1 deleted',
       });
     });
   });

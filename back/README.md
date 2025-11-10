@@ -25,6 +25,14 @@ No busca solo mostrar conocimiento técnico, sino también mis ganas de seguir a
 
 Mi foco está siempre en escribir código limpio, entendible y mantenible, aportando valor real a los equipos de desarrollo y asegurando bases sólidas para proyectos a largo plazo.
 
+# IMPORTANTE
+Una vez instalado las dependencias e inicializado el servidor se va agregar automaticamente un usuario admin para poder trabajar con el mismo desde el inicio
+el mismo es:
+```python
+user: admin@admin.com
+password: admin123
+```
+
 ---
 
 ## 🚀 Ejecución del Proyecto

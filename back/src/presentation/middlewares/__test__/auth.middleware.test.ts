@@ -26,7 +26,7 @@ describe('authMiddleware', () => {
 
     expect(mockNext).toHaveBeenCalledWith(expect.any(AppError));
     const error = mockNext.mock.calls[0][0];
-    expect(error.message).toBe('Token no proporcionado');
+    expect(error.message).toBe('Token not provided');
     expect(error.statusCode).toBe(401);
   });
 
@@ -39,7 +39,7 @@ describe('authMiddleware', () => {
     authMiddleware(mockReq, mockRes, mockNext);
 
     expect(mockNext).toHaveBeenCalledWith(
-      expect.objectContaining({ message: 'Token inválido o expirado' })
+      expect.objectContaining({ message: 'Invalid or expired token' })
     );
   });
 

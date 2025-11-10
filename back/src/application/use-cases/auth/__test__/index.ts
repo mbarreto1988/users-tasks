@@ -52,7 +52,7 @@ describe('AuthUseCase', () => {
 
       expect(mockAuthRepo.findByEmail).toHaveBeenCalledWith('john@example.com');
       expect(result.user.email).toBe('john@example.com');
-      expect(result.message).toBe('Usuario registrado correctamente');
+      expect(result.message).toBe('User successfully registered');
     });
 
     it('should throw error if email already exists', async () => {

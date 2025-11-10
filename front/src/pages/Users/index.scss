@@ -1,0 +1,114 @@
+@use '../../styles/variables' as *;
+
+.users {
+  padding: 2rem;
+  text-align: center;
+
+  &__title {
+    color: $primary-color;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  &__table {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 0.6rem 0.8rem;
+      text-align: center;
+    }
+
+    th {
+      background-color: $primary-color;
+      color: white;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #eef5ff;
+    }
+
+    td select {
+      padding: 0.4rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
+
+      &:focus {
+        outline: none;
+        border-color: $primary-color;
+      }
+    }
+  }
+
+  &__denied {
+    color: red;
+    font-weight: bold;
+    padding: 2rem;
+  }
+}
+
+/* --- BOTONES --- */
+.btn {
+  border: none;
+  border-radius: 5px;
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease-in-out;
+
+  &.btn-edit {
+    background-color: #0d6efd;
+    color: white;
+
+    &:hover {
+      background-color: #0b5ed7;
+    }
+  }
+
+  &.btn-save {
+    background-color: #28a745;
+    color: white;
+    margin-right: 5px;
+
+    &:hover {
+      background-color: #218838;
+    }
+  }
+
+  &.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+
+    &:hover {
+      background-color: #5a6268;
+    }
+  }
+
+  &.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    margin-left: 5px;
+
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+}
